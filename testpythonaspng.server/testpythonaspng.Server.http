@@ -1,0 +1,6 @@
+@testpythonaspng.Server_HostAddress = http://localhost:5284
+
+GET {{testpythonaspng.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
