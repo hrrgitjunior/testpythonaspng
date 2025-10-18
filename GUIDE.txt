@@ -1,0 +1,21 @@
+asp.net core 8.0
+angular v 17
+node js version 24, angular 17 does not provide node js 24 ?
+client=> ANGOLAR
+serve => asp.net
+how to install CSaneks on remote server:
+by FTP FILE MOZILA:не е необходимовсички ф-ве.
+може би ако поствим Csnakes и в server app, и при publish ще се зареди на сървара.
+иначе от командата fromredistributer не може.
+host: win1042.site4now.net
+usernme:hradoevdar-001
+pasw:Hradoev67Asp!
+тук паролата беше друга, но я смених
+за да работи на сървара с твоя core 8.0, web.config => inprocess
+може да се разгледа и properties/launchSettings.json
+ако на сървара няма фолдер python, комндата withhome, ще хвърли изключение.
+
+DataTable:
+в index.html трябва да присъства:
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
