@@ -1,6 +1,9 @@
-@testpythonaspng.Server_HostAddress = http://localhost:5284
+@testpythonaspng.Server_HostAddress = https://localhost:7298
 
 GET {{testpythonaspng.Server_HostAddress}}/weatherforecast/
 Accept: application/json
+###
+
+GET {{testpythonaspng.Server_HostAddress}}/api/analysis
 
 ###

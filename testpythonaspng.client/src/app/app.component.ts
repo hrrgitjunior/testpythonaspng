@@ -33,5 +33,18 @@ export class AppComponent implements OnInit {
     );
   }
 
+/*  getForecasts() {
+    this.http.get<any>('/api/analysis').subscribe(
+      (result) => {
+        this.forecasts = result;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  } */
+
+
+
   title = 'testpythonaspng.client';
 }

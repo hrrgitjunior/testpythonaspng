@@ -19,3 +19,23 @@ DataTable:
 в index.html трябва да присъства:
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
 
+в testpythonaspng.client/src има файл:
+proxy.conf.js
+const { env } = require('process');
+
+const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+  env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7298'; => слуша servera
+
+const PROXY_CONFIG = [
+  {
+    context: [
+      "/weatherforecast",
+      "/api/analysis" => това са api/controller end points
+    ],
+    target,
+    secure: false
+  }
+]
+
+module.exports = PROXY_CONFIG;
+

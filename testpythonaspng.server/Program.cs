@@ -24,8 +24,8 @@ myLogger.WriteMsg(python_src);
 builder.Services
     .WithPython()
     .WithHome(home)
-    /*.WithVirtualEnvironment(venv_path)
-    .WithPipInstaller()*/
+    .WithVirtualEnvironment(venv_path)
+    .WithPipInstaller()
     //.FromFolder(@python_src, "3.12");
     .FromRedistributable("3.12"); // Downloads Python automatically
                             //.FromFolder(@python_src, "3.12");
@@ -65,10 +65,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapControllers();
-app.MapControllerRoute(
+app.MapControllers();
+/*app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
+app.UseRouting(); // Adds routing middleware to the pipeline
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers(); // Enables attribute-based controller routing
+});*/
+
 
 app.MapFallbackToFile("/index.html");
 

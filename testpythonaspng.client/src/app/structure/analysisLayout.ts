@@ -19,6 +19,15 @@ export let product_columns = [
   { 'data': 'col3', 'title': 'col3' },
   { 'data': 'col4', 'title': 'col4' }]
 
+export let dataanalys_columns = [
+  { 'data': 'pv_cnt', 'title': 'pv_cnt' },
+  { 'data': 'amount', 'title': 'amount' },
+  { 'data': 'price', 'title': 'price' },
+  { 'data': 'week', 'title': 'week' }]
+
+
+
+
 class DataTablesResponse {
   data: any[] = [];
   draw: number = 0;
@@ -57,35 +66,48 @@ export class AnalysisLayoutComponent {
     let that = this;
     this.dTable = $('#analysTable');
     this.hTable = this.dTable.DataTable({
+      layout: {
+        topStart: 'pageLength',
+        topEnd: 'search',
+        bottomStart: 'info',
+        bottomEnd: 'paging',
+      /*  bottom: [
+          'pageLength',
+          'info'
+        ]*/
+      },
+      pagingType: 'numbers',
+      pageLength: 3,
+      serverSide: true,
+      processing: true,
       columnDefs: [{
         'targets': 0,
         'searcheble': true,
         'orderable': false,
         'className': 'dt-body-center'
        }],
-      pagingType: 'numbers',
-      pageLength: 5,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTablesParameters: any, callback: any) => {
-        dataTablesParameters.filter = { field: "pId", value: 10 };
+       ajax: (dataTablesParameters: any, callback: any) => {
+        dataTablesParameters.filter = { field: "week", value: 10};
         console.log("AJAX PARAMS ===", dataTablesParameters);
         that.http
-          .get<any>('/analysis', {})
+          .post<any>('/api/analysis', dataTablesParameters, {})
           .subscribe(resp => {
-            //that.products = resp.data;
-            console.log("SUBSCRIBE ", resp);
+            that.analysisdata = resp.data;
+            console.log("SUBSCRIBE ", resp.data);
 
             callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsFiltered,
+              recordsTotal: 0,
+              //resp.recordsTotal, => from analysiscontrol
+              recordsFiltered: 6, //=> from analysiscontrol
+//                resp.recordsFiltered,
               data: resp.data,
             });
           });
       },
+     
       responsive: true,
-      columns: product_columns
-      //data: product_data
+      columns: dataanalys_columns,
+      data: this.analysisdata
       
     });
     console.log("analysis after init", this.hTable);
