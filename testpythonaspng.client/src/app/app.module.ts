@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MainLayoutComponent } from "./structure/mainLayout";
 import { CategoryLayoutComponent } from "./structure/categoryLayout";
 import { AnalysisLayoutComponent } from "./structure/analysisLayout";
+import { UploadComponent } from './structure/upload';
 
 import { AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +14,8 @@ import { AppComponent } from './app.component';
     AppComponent,
     MainLayoutComponent,
     CategoryLayoutComponent,
-    AnalysisLayoutComponent
+    AnalysisLayoutComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,

@@ -33,7 +33,11 @@ class DataTablesResponse {
   draw: number = 0;
   recordsFiltered : number = 0;
   recordsTotal: number = 0;
-} 
+}
+
+class MyDto {
+  name: string | any;
+}
 
 @Component({
   selector: "analysis-layout",
@@ -55,10 +59,10 @@ export class AnalysisLayoutComponent {
   ngOnInit() {
     console.log("analysis init");
     const that = this;
-    $('button').click(function () {
+ /*   $('button').click(function () {
      // alert('Wass up!');
       that.create_table();
-    });
+    });*/
     
   }
 
@@ -112,6 +116,18 @@ export class AnalysisLayoutComponent {
     });
     console.log("analysis after init", this.hTable);
     
+  }
+
+  upload() {
+    console.log("==== upload click ====");
+    this.router.navigateByUrl("/api/upload");
+ /*   let myDto: MyDto = new MyDto();
+    myDto.name = "AAA";
+    this.http.post('/api/upload', myDto, {})
+      .subscribe(resp => {
+        console.log("SUBSCRIBE ", resp);
+      }
+      )*/
   }
   
 

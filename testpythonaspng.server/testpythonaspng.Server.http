@@ -7,3 +7,11 @@ Accept: application/json
 GET {{testpythonaspng.Server_HostAddress}}/api/analysis
 
 ###
+
+POST {{testpythonaspng.Server_HostAddress}}/api/analysis {}
+
+###
+
+POST {{testpythonaspng.Server_HostAddress}}/api/upload "AAA"
+
+###

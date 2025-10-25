@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from "./structure/mainLayout";
 import { CategoryLayoutComponent } from "./structure/categoryLayout";
 import { AnalysisLayoutComponent } from "./structure/analysisLayout";
+import { UploadComponent } from './structure/upload';
 
 
 const routes: Routes = [
@@ -12,9 +13,8 @@ const routes: Routes = [
       {
         path: '', component: CategoryLayoutComponent,
         children: [
-          {
-            path: '', component: AnalysisLayoutComponent
-          }
+          { path: '', component: AnalysisLayoutComponent },
+          { path: 'api/upload', component: UploadComponent }
         ]
       }
     ]
