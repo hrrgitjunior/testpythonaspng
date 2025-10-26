@@ -35,6 +35,10 @@ class DataTablesResponse {
   recordsTotal: number = 0;
 }
 
+class DataTablesColumnsResponse {
+  columns: any[] = [];
+}
+
 class MyDto {
   name: string | any;
 }
@@ -49,6 +53,7 @@ export class AnalysisLayoutComponent {
   hTable: any = null;
   jqDataTable: any = null;
   analysisdata: any = null;
+  columns: any;
   //dtOptions: DataTables.Settings = {};
   constructor(
     private _route: ActivatedRoute,
@@ -110,7 +115,8 @@ export class AnalysisLayoutComponent {
       },
      
       responsive: true,
-      columns: dataanalys_columns,
+      //columns: dataanalys_columns,
+      columns: this.columns,
       data: this.analysisdata
       
     });
@@ -121,14 +127,20 @@ export class AnalysisLayoutComponent {
   upload() {
     console.log("==== upload click ====");
     this.router.navigateByUrl("/api/upload");
- /*   let myDto: MyDto = new MyDto();
-    myDto.name = "AAA";
-    this.http.post('/api/upload', myDto, {})
-      .subscribe(resp => {
-        console.log("SUBSCRIBE ", resp);
-      }
-      )*/
   }
-  
+
+  exploratory() {
+    console.log("==== exploratory ====");
+    let that = this;
+    this.http
+      .post('/api/analysis/Exploratory', {}, {})
+      .subscribe((resp: any) => {
+        that.columns = resp.columns;
+    }, (error) => {
+      // Handle error
+    });
+  }
+
+
 
 }

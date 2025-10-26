@@ -2,6 +2,7 @@ using CSnakes.Runtime;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
+using testpythonaspng.Server;
 using testpythonaspng.Server.Models;
 /*using Microsoft.Extensions.Hosting;
 using testpythonaspmvc.Models;
@@ -10,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 MyLogger myLogger = new MyLogger();
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +28,10 @@ builder.Services
     .WithPipInstaller()
     //.FromFolder(@python_src, "3.12");
     .FromRedistributable("3.12"); // Downloads Python automatically
-                            //.FromFolder(@python_src, "3.12");
+                                  //.FromFolder(@python_src, "3.12");
+
+PythonEnv pythonEnv = new PythonEnv();
+builder.Services.AddSingleton(pythonEnv);
 var app = builder.Build();
 try
 {
@@ -36,6 +39,7 @@ try
     var paythonService = env.Example1();
     string test_py = paythonService.HelloWorld("Radka", 80);
     myLogger.WriteMsg(test_py);
+    pythonEnv.AddObj("PythonEnv", env);
 }
 catch (Exception e)
 {

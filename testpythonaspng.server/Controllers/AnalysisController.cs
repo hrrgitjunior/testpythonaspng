@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CSnakes.Runtime;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.IO;
 using System.Data.Common;
+using System.IO;
 using System.Net.Http;
+using testpythonaspng.Server.Models;
 
 namespace testpythonaspng.Server.Controllers
 {
@@ -17,10 +19,7 @@ namespace testpythonaspng.Server.Controllers
     public class Column
     {
         public string data { get; set; }
-        public string name { get; set; }
-        public bool searchable { get; set; }
-        public bool orderable { get; set; }
-        public Search search { get; set; }
+        public string title { get; set; }
     }
 
     public class Search
@@ -50,6 +49,16 @@ namespace testpythonaspng.Server.Controllers
     [ApiController]
     public class AnalysisController : ControllerBase
     {
+        private readonly ILogger<HomeController> _logger;
+        private MyLogger _myLogger;
+        IPythonEnvironment _pythonEnv;
+
+        public AnalysisController(ILogger<HomeController> logger,
+                                  PythonEnv pythonEnv)
+        {
+            _logger = logger;
+            _pythonEnv = pythonEnv.dict["PythonEnv"] as IPythonEnvironment;
+        }
         [HttpPost]
         public async Task<IActionResult> GetAll([FromForm] DataTableAjaxPostModel model)
         {
@@ -115,9 +124,52 @@ namespace testpythonaspng.Server.Controllers
             List<DataAnalysis> pageDataAnalysis = dataAnalysis
                                                    .Skip(dtModel.start)
                                                    .Take(dtModel.length).ToList();
-                
+
             //return data;
-            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6,});
+            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6, });
+            return Ok(json);
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> Exploratory()
+        {
+
+            /*          export let dataanalys_columns = [
+            { 'data': 'pv_cnt', 'title': 'pv_cnt' },
+            { 'data': 'amount', 'title': 'amount' },
+            { 'data': 'price', 'title': 'price' },
+            { 'data': 'week', 'title': 'week' }]*/
+            List<Column> columnList = new List<Column>()
+            {
+              new Column
+              {
+                  data = "pv_cnt",
+                  title = "pv_cnt"
+              },
+              new Column
+              {
+                  data = "amount",
+                  title = "amount"
+              },
+                            new Column
+              {
+                  data = "price",
+                  title = "price"
+              },
+              new Column
+              {
+                  data = "week",
+                  title = "week"
+              }
+
+            };
+            var pythonExploratory = _pythonEnv.Exploratory();
+            var exploratoryColumns = pythonExploratory.GetColumns("aaa");
+
+
+            string json = JsonConvert.SerializeObject(new {columns = columnList, exploratory_columns = exploratoryColumns});
+            //string json = JsonConvert.SerializeObject(new { columns = columnList});
             return Ok(json);
         }
     }
