@@ -101,15 +101,18 @@ export class AnalysisLayoutComponent {
         that.http
           .post<any>('/api/analysis', dataTablesParameters, {})
           .subscribe(resp => {
-            that.analysisdata = resp.data;
-            console.log("SUBSCRIBE ", resp.data);
+            that.analysisdata = resp.test;
+            this.columns = resp.columns;
+            console.log("SUBSCRIBE ", resp.test);
+            console.log("SUBSCRIBE ", resp.columns)
 
             callback({
               recordsTotal: 0,
               //resp.recordsTotal, => from analysiscontrol
               recordsFiltered: 6, //=> from analysiscontrol
 //                resp.recordsFiltered,
-              data: resp.data,
+              data: resp.test,
+              columns: resp.columns
             });
           });
       },

@@ -1,6 +1,7 @@
 ﻿using CSnakes.Runtime;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Data;
 using System.Data.Common;
 using System.IO;
 using System.Net.Http;
@@ -16,11 +17,11 @@ namespace testpythonaspng.Server.Controllers
         public int week { get; set;}
     }
 
-    public class Column
+   /* public class Column
     {
         public string data { get; set; }
         public string title { get; set; }
-    }
+    }*/
 
     public class Search
     {
@@ -59,6 +60,54 @@ namespace testpythonaspng.Server.Controllers
             _logger = logger;
             _pythonEnv = pythonEnv.dict["PythonEnv"] as IPythonEnvironment;
         }
+
+        public string[][] ReadCSV(string filename)
+        {
+            List<string[]> tempList = new List<string[]>();
+            string line;
+            StreamReader reader = new StreamReader("test.txt");
+
+            while ((line = reader.ReadLine()) != null)
+            {
+                tempList.Add(SplitCSVLine(line));
+            }
+            reader.Close();
+            return tempList.ToArray();
+        }
+
+        public string[] SplitCSVLine(string line)
+        {
+            List<string> result = new List<string>();
+            result.AddRange(line.Split(new char[] { ',' }));
+
+            return result.ToArray();
+        }
+
+        public static DataTable ConvertCSVtoDataTable(string strFilePath)
+        {
+            DataTable dt = new DataTable();
+            using (StreamReader sr = new StreamReader(strFilePath))
+            {
+                string[] headers = sr.ReadLine().Split(',');
+                foreach (string header in headers)
+                {
+                    dt.Columns.Add(header);
+                }
+                while (!sr.EndOfStream)
+                {
+                    string[] rows = sr.ReadLine().Split(',');
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        dr[i] = rows[i];
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+            return dt;
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> GetAll([FromForm] DataTableAjaxPostModel model)
         {
@@ -126,7 +175,13 @@ namespace testpythonaspng.Server.Controllers
                                                    .Take(dtModel.length).ToList();
 
             //return data;
-            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6, });
+            string fullPath = Path.Combine("uploads/", "product_vending_analysis.csv");
+           // var csv_data = this.ReadCSV(fullPath);
+            DataTable dt = ConvertCSVtoDataTable("uploads/product_vending_analisys.csv");
+            DataExploratory dataExpl = new DataExploratory(_pythonEnv);
+            var columnList = dataExpl.GetColumns("uploads/product_vending_analisys.csv");
+
+            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6, test = dt, columns = columnList });
             return Ok(json);
         }
 
@@ -140,7 +195,7 @@ namespace testpythonaspng.Server.Controllers
             { 'data': 'amount', 'title': 'amount' },
             { 'data': 'price', 'title': 'price' },
             { 'data': 'week', 'title': 'week' }]*/
-            List<Column> columnList = new List<Column>()
+    /*        List<Column> columnList = new List<Column>()
             {
               new Column
               {
@@ -163,12 +218,14 @@ namespace testpythonaspng.Server.Controllers
                   title = "week"
               }
 
-            };
-            var pythonExploratory = _pythonEnv.Exploratory();
-            var exploratoryColumns = pythonExploratory.GetColumns("aaa");
+            };*/
+          /*  var pythonExploratory = _pythonEnv.Exploratory();
+            var exploratoryColumns = pythonExploratory.GetColumns("aaa");*/
+            DataExploratory dataExpl = new DataExploratory(_pythonEnv);
+            var columnList = dataExpl.GetColumns("uploads/product_vending_analisys.csv");
 
 
-            string json = JsonConvert.SerializeObject(new {columns = columnList, exploratory_columns = exploratoryColumns});
+            string json = JsonConvert.SerializeObject(new {columns = columnList, exploratory_columns = columnList});
             //string json = JsonConvert.SerializeObject(new { columns = columnList});
             return Ok(json);
         }
