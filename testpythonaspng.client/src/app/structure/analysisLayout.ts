@@ -86,7 +86,7 @@ export class AnalysisLayoutComponent {
         ]*/
       },
       pagingType: 'numbers',
-      pageLength: 3,
+      pageLength: 5,
       serverSide: true,
       processing: true,
       columnDefs: [{
@@ -107,9 +107,9 @@ export class AnalysisLayoutComponent {
             console.log("SUBSCRIBE ", resp.columns)
 
             callback({
-              recordsTotal: 0,
-              //resp.recordsTotal, => from analysiscontrol
-              recordsFiltered: 6, //=> from analysiscontrol
+              recordsTotal: resp.rowNumber,
+              //resp.recordsTotal, => from analysiscontroller
+              recordsFiltered: resp.rowNumber, //=> from analysiscontroller
 //                resp.recordsFiltered,
               data: resp.test,
               columns: resp.columns

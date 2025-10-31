@@ -180,8 +180,13 @@ namespace testpythonaspng.Server.Controllers
             DataTable dt = ConvertCSVtoDataTable("uploads/product_vending_analisys.csv");
             DataExploratory dataExpl = new DataExploratory(_pythonEnv);
             var columnList = dataExpl.GetColumns("uploads/product_vending_analisys.csv");
+            int numberOfRecords = dt.Rows.Count;
+            var csv_page = dt
+                        .AsEnumerable()
+                        .Skip(dtModel.start)
+                        .Take(dtModel.length).CopyToDataTable(); 
 
-            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6, test = dt, columns = columnList });
+            string json = JsonConvert.SerializeObject(new { data = pageDataAnalysis, recordsTotal = 6, test = csv_page, columns = columnList, rowNumber = numberOfRecords });
             return Ok(json);
         }
 
