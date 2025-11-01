@@ -1,10 +1,22 @@
 <div style="height: 100%; background-color:azure">
   Analysis Layout
-  <div class="panel-body">
-    <table id="analysTable" class="row-border hover">
+  <div class="table-responsive" >
+    <table id="analysTable" class="display" width="100%">
     </table>
   </div>
   <button (click)=create_table()>VIEW DATA</button>
   <button (click)="upload()">UPLOAD</button>
   <button (click)="exploratory()">EXPLORATORY</button>
+  <table style="border: 1px solid black">
+    <tr>
+      <th *ngFor="let c of columnsType" style="border: 1px solid black">
+        {{c.column}}
+      </th>
+    </tr>
+    <tr>
+      <td *ngFor="let c of columnsType" style="border: 1px solid black">
+        {{c.type}}
+      </td>
+    </tr>
+  </table>
 </div>
