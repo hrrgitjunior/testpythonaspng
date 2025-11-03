@@ -5,6 +5,9 @@ import { MainLayoutComponent } from "./structure/mainLayout";
 import { CategoryLayoutComponent } from "./structure/categoryLayout";
 import { AnalysisLayoutComponent } from "./structure/analysisLayout";
 import { UploadComponent } from './structure/upload';
+import { TabComponent } from './structure/tab';
+import { TabsComponent } from './structure/tabs';
+//import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,11 +18,14 @@ import { AppComponent } from './app.component';
     MainLayoutComponent,
     CategoryLayoutComponent,
     AnalysisLayoutComponent,
-    UploadComponent
+    UploadComponent,
+    TabComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
     AppRoutingModule
+    //NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
