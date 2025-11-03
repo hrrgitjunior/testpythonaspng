@@ -4,23 +4,11 @@
     <table id="analysTable" class="display" width="100%">
     </table>
   </div>
-  <button (click)=create_table()>VIEW DATA</button>
+  <button (click)="create_table()">VIEW DATA</button>
   <button (click)="upload()">UPLOAD</button>
   <button (click)="exploratory()">EXPLORATORY</button>
-  <table style="border: 1px solid black">
-    <tr>
-      <th *ngFor="let c of columnsType" style="border: 1px solid black">
-        {{c.column}}
-      </th>
-    </tr>
-    <tr>
-      <td *ngFor="let c of columnsType" style="border: 1px solid black">
-        {{c.type}}
-      </td>
-    </tr>
-  </table>
   <ngx-tabs>
-    <ngx-tab [title]="'Exploratory'">one</ngx-tab>
+    <ngx-tab [title]="'Exploratory'"><exploratory-layout></exploratory-layout></ngx-tab>
     <ngx-tab [title]="'Statistics'">two</ngx-tab>
     <ngx-tab [title]="'Regression'">three</ngx-tab>
   </ngx-tabs>

@@ -8,6 +8,7 @@ const PROXY_CONFIG = [
     context: [
       "/weatherforecast",
       "/api/analysis",
+      "/api/analysis/GetDTColumns",
       "/api/analysis/ExploratoryColumns",
       "/api/upload"
     ],

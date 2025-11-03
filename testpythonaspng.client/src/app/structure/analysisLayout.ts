@@ -38,14 +38,13 @@ export class AnalysisLayoutComponent {
 
   ngOnInit() {
     console.log("analysis init");
-    this.repo.exploratory_get_columns();
+    this.repo.get_dt_columns();
     
   }
 
   get columnsType(): any {
     console.log("=== GET COLUNS TYPE ===");''
       return this.repo.columnsType
-    //return this.repo.products;
   }
 
   public create_table(): void {

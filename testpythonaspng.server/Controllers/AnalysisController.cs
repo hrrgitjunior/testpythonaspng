@@ -90,13 +90,24 @@ namespace testpythonaspng.Server.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> ExploratoryColumns()
+        public async Task<IActionResult> GetDTColumns()
         {
             DataExploratory dataExpl = new DataExploratory(_pythonEnv);
             var columnList = dataExpl.GetColumns("uploads/product_vending_analisys.csv");
-            var columnTypeList = dataExpl.GetColumnsType("uploads/product_vending_analisys.csv");
-            string json = JsonConvert.SerializeObject(new {tableColumns = columnList, exploratory_columns = columnList, columnsType = columnTypeList});
+            string json = JsonConvert.SerializeObject(new {tableColumns = columnList});
             return Ok(json);
         }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> ExploratoryColumns()
+        {
+            DataExploratory dataExpl = new DataExploratory(_pythonEnv);
+            var columnTypeList = dataExpl.GetColumnsType("uploads/product_vending_analisys.csv");
+            var corr_path = dataExpl.GetCorrelation("uploads/product_vending_analisys.csv");
+            string json = JsonConvert.SerializeObject(new {columnsType = columnTypeList, corr_image_path = corr_path });
+            return Ok(json);
+        }
+
     }
 }

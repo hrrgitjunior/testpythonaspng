@@ -7,7 +7,8 @@ import { AnalysisLayoutComponent } from "./structure/analysisLayout";
 import { UploadComponent } from './structure/upload';
 import { TabComponent } from './structure/tab';
 import { TabsComponent } from './structure/tabs';
-//import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ExploratoryComponent } from './structure/exploratory';
+
 
 import { AppRoutingModule} from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,7 +21,8 @@ import { AppComponent } from './app.component';
     AnalysisLayoutComponent,
     UploadComponent,
     TabComponent,
-    TabsComponent
+    TabsComponent,
+    ExploratoryComponent
   ],
   imports: [
     BrowserModule, HttpClientModule,
