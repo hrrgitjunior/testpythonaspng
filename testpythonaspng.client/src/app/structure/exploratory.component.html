@@ -1,0 +1,15 @@
+<div>
+  <button type="button" class="btn btn-primary" (click)="get_exploratory_columns()">Run</button>
+  <table style="border: 1px solid black" style ="margin-top: 10px">
+    <tr>
+      <th *ngFor="let c of columnsType" style="border: 1px solid black">
+        {{c.column}}
+      </th>
+    </tr>
+    <tr>
+      <td *ngFor="let c of columnsType" style="border: 1px solid black">
+        {{c.type}}
+      </td>
+    </tr>
+  </table>
+</div>
