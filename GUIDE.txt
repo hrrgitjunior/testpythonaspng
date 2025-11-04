@@ -39,3 +39,12 @@ const PROXY_CONFIG = [
 
 module.exports = PROXY_CONFIG;
 
+in develop mode
+usestaticfiles => clientapp
+python write file on clientapp
+controller return localhost:with port from property/lainchsetting => the port of server asp.net
+angular img src = localhost:asp.net/clientapp
+
+in publish we should use clean url => wwwroot
+python should write on wwwroot
+
