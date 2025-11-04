@@ -46,7 +46,8 @@ def get_corralation(filename: str) -> str:
 	g=sns.heatmap(df_train[top_corr_features].corr(),annot=True,cmap="coolwarm",vmin=-1,vmax=1,center=0)
 
 	
-	plt.savefig('corelation_heatmap.png')
+	#plt.savefig('wwwroot/corelation_heatmap.png');
+	plt.savefig('corelation_heatmap.png');
 
 	#print("after sns.heatmap")
 

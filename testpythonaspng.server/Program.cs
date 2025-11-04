@@ -2,6 +2,7 @@ using CSnakes.Runtime;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using testpythonaspng.Server;
 using testpythonaspng.Server.Models;
 /*using Microsoft.Extensions.Hosting;
@@ -54,8 +55,8 @@ app.UseStaticFiles();
 
 if (app.Environment.IsDevelopment())
 {
-   /* app.UseSwagger();
-    app.UseSwaggerUI();*/
+    /* app.UseSwagger();
+     app.UseSwaggerUI();*/
 }
 
 if (!app.Environment.IsDevelopment())
@@ -64,7 +65,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    RequestPath = "",
+    FileProvider = new PhysicalFileProvider(
+                  Path.Combine(Directory.GetCurrentDirectory(),
+                  "./ClientApp"))
+});
 app.UseRouting();
 
 app.UseAuthorization();

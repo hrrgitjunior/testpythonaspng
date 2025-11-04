@@ -22,9 +22,14 @@ export class ExploratoryComponent {
   }
 
   get columnsType(): any {
-    console.log("=== GET COLUNS TYPE ==="); ''
+    console.log("=== GET COLUNS TYPE ===");
     return this.repo.columnsType
     //return this.repo.products;
+  }
+
+  get corr_image_url(): any {
+    console.log("=== GET CORR IMAGE URL ===");
+    return this.repo.corr_image_url;
   }
 
   public get_exploratory_columns() {
