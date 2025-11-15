@@ -8,6 +8,7 @@ export class Repository {
   tableColumns: any;
   columnsType: any;
   corr_image_url: string = "";
+  mlrStats: any;
 
   constructor(private http: HttpClient) {
   }
@@ -35,4 +36,16 @@ export class Repository {
         // Handle error
       });
   }
+
+  get_mlr_stats() {
+    this.http
+      .post('/api/analysis/MLRegressionStats', {}, {})
+      .subscribe((resp: any) => {
+        this.mlrStats = resp.mlrStats;
+        console.log("==== repository mlrStats ===", resp.mlrStats);
+      }, (error) => {
+        // Handle error
+      });
+  }
+
 }

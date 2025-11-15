@@ -22,7 +22,7 @@ export class ExploratoryComponent {
   }
 
   get columnsType(): any {
-    console.log("=== GET COLUNS TYPE ===");
+    console.log("=== GET COLUMNS TYPE ===");
     return this.repo.columnsType
     //return this.repo.products;
   }
@@ -35,5 +35,11 @@ export class ExploratoryComponent {
   public get_exploratory_columns() {
     this.repo.exploratory_get_columns();
   }
+
+  public get_mlr_stats() {
+    console.log("=== GET MLR STATS ===");
+    this.repo.get_mlr_stats();
+  }
+
 
 }

@@ -65,13 +65,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(new StaticFileOptions
+app.UseStaticFiles();
+/*app.UseStaticFiles(new StaticFileOptions
 {
     RequestPath = "",
     FileProvider = new PhysicalFileProvider(
                   Path.Combine(Directory.GetCurrentDirectory(),
                   "./ClientApp"))
-});
+});*/
 app.UseRouting();
 
 app.UseAuthorization();

@@ -105,9 +105,20 @@ namespace testpythonaspng.Server.Controllers
             DataExploratory dataExpl = new DataExploratory(_pythonEnv);
             var columnTypeList = dataExpl.GetColumnsType("uploads/product_vending_analisys.csv");
             var corr_path = dataExpl.GetCorrelation("uploads/product_vending_analisys.csv");
-            var baseUri = "https://localhost:7298/";
+/*            var baseUri = "https://localhost:7298/";
+            string json = JsonConvert.SerializeObject(new { columnsType = columnTypeList, corr_image_url = baseUri + corr_path });*/
 
-            string json = JsonConvert.SerializeObject(new { columnsType = columnTypeList, corr_image_url = baseUri + corr_path });
+            string json = JsonConvert.SerializeObject(new { columnsType = columnTypeList, corr_image_url = corr_path });
+            return Ok(json);
+        }
+
+        [Route("[action]")]
+        [HttpPost]
+        public async Task<IActionResult> MLRegressionStats()
+        {
+            DataExploratory dataExpl = new DataExploratory(_pythonEnv);
+            var mlRegrStats = dataExpl.GetMLREvaluation("uploads/product_vending_analisys.csv");
+            string json = JsonConvert.SerializeObject(new { mlrStats = mlRegrStats});
             return Ok(json);
         }
 

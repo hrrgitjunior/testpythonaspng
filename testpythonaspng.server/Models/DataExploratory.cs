@@ -9,6 +9,7 @@ namespace testpythonaspng.Server.Models
         public object GetColumnsType(string FileName);
 
         public string GetCorrelation(string FileName);
+        public object GetMLREvaluation(string FileName);
     }
 
     public class Column
@@ -41,8 +42,15 @@ namespace testpythonaspng.Server.Models
         public string GetCorrelation(string FileName)
         {
             var pythonExploratory = _pythonEnv.Exploratory();
-            var corr_image_path = pythonExploratory.GetCorralation(FileName);
+            var corr_image_path = pythonExploratory.GetCorralationPerWeek(FileName);
             return corr_image_path;
+        }
+
+        public object GetMLREvaluation(string FileName)
+        {
+            var pythonExploratory = _pythonEnv.Exploratory();
+            var ml_regression_stats = pythonExploratory.GetMlrEvaluation(FileName);
+            return ml_regression_stats;
         }
 
     }

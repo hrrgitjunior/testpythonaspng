@@ -10,6 +10,7 @@ const PROXY_CONFIG = [
       "/api/analysis",
       "/api/analysis/GetDTColumns",
       "/api/analysis/ExploratoryColumns",
+      "/api/analysis/MLRegressionStats",
       "/api/upload"
     ],
     target,

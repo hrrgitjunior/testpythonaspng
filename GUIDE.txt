@@ -48,3 +48,35 @@ angular img src = localhost:asp.net/clientapp
 in publish we should use clean url => wwwroot
 python should write on wwwroot
 
+===
+IN DEVELOP MODE
+PROGRAM.CS
+...
+app.UseStaticFiles(new StaticFileOptions
+{
+    RequestPath = "",
+    FileProvider = new PhysicalFileProvider(
+                  Path.Combine(Directory.GetCurrentDirectory(),
+                  "./ClientApp"))
+});
+
+IN PYTHON
+plt.savefig('ClientApp/corelation_heatmap_per_week.png');
+
+====
+IN PUBLISH
+PROGRAM.CS
+...
+app.UseStaticFiles();
+
+IN PYTHON
+plt.savefig('wwwroot/corelation_heatmap_per_week.png');
+
+15/11/2025
+EndPoint:
+MLRegressionStas => работи, но без визуализация.Само NETWORK INSPECT
+Предстои визуализация.
+
+
+
+
